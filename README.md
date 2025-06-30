@@ -38,9 +38,11 @@ Super fun glitch engine built with [Processing](https://processing.org/). It all
 1. Clone this repo:
    `git clone https://github.com/Elucide/Elucide-s-Virtual-Bender`
 
-2. Open the `glitch_engine.pde` file in Processing.
+   or download zip
 
-3. Run the sketch and load an image.
+3. Open the `elucide_virtual_bender.pde` file in Processing.
+
+4. Run the sketch and load an image.
 
 
 ## 🧑‍💻 Author
