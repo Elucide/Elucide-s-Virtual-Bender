@@ -1,7 +1,12 @@
+import java.util.Arrays;
+
 PImage loadedImage;
 PImage header_img;
 PImage image_to_save;
-Button testButton, loadButton, ermButton, bruhButton, blurButton, saveButton;
+Button testButton, loadButton, saveButton;
+Button ermButton, bruhButton, blurButton, shineButton, shiftButton;
+Button thresholdButton, unshiftButton;
+Button redSortButton, greenSortButton, blueSortButton;
 
 class View {
   float x, y, w, h;
@@ -62,6 +67,41 @@ void setup()
                            color(100, 200, 255), 
                            color(150, 220, 255), 
                            color(0), "blur", "simple blur");
+                     
+  shineButton = new Button(930, 110, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "shine", "to make it shine");
+                     
+  shiftButton = new Button(990, 110, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "shift", "mess with hsl !");
+                     
+  thresholdButton = new Button(750, 170, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "bnw", "black and white");
+                     
+  unshiftButton = new Button(990, 170, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "unshift", "it was not supposed to do this...");
+                     
+  redSortButton = new Button(810, 170, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "redsort", "sorts pixels that are not red enough");
+                     
+  greenSortButton = new Button(870, 170, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "greensort", "sorts pixels that are not green enough");
+                     
+  blueSortButton = new Button(930, 170, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "bluesort", "sorts pixels that are not blue enough");
 }
 
 void draw()
@@ -91,6 +131,14 @@ void draw()
   ermButton.display();
   bruhButton.display();
   blurButton.display();
+  shineButton.display();
+  shiftButton.display();
+  thresholdButton.display();
+  unshiftButton.display();
+  redSortButton.display();
+  greenSortButton.display();
+  blueSortButton.display();
+  
  
 }
 
@@ -111,21 +159,12 @@ void draw_viewfinder()
    }
 }
 
-
-
-PImage blur(PImage img)
-{  
-    img.filter(BLUR, 1);
-   println("what a sigma");
-   return img; 
-}
-
 void mousePressed() {
   // Check if mouse is in control panel view
     control_panel_view.activate();
     if (testButton.isPressed())
     {
-       saveImageWithDialog(loadedImage);
+       redsortPixelsVertically(loadedImage);
     }
     if (loadButton.isPressed())
     {
@@ -146,6 +185,34 @@ void mousePressed() {
     if (blurButton.isPressed())
     {
         loadedImage = blur(loadedImage);
+    }
+    if (shineButton.isPressed())
+    {
+        loadedImage = shine(loadedImage);
+    }
+    if (shiftButton.isPressed())
+    {
+        loadedImage = shift(loadedImage);
+    }
+    if (thresholdButton.isPressed())
+    {
+       loadedImage = threshold(loadedImage);
+    }
+    if (unshiftButton.isPressed())
+    {
+        loadedImage = unshift(loadedImage);
+    }
+    if (redSortButton.isPressed())
+    {
+       redsortPixelsVertically(loadedImage);
+    }
+    if (greenSortButton.isPressed())
+    {
+       greensortPixelsVertically(loadedImage);
+    }
+    if (blueSortButton.isPressed())
+    {
+       bluesortPixelsVertically(loadedImage);
     }
     control_panel_view.deactivate();
 }
