@@ -49,11 +49,3 @@ Super fun glitch engine built with [Processing](https://processing.org/). It all
 
 Made with ☕ and ⚡ by **Elucide*
 [GitHub](https://github.com/elucide)
-
-
-
-## 📄 License
-
-This project is licensed under the MIT License. See [`LICENSE`](LICENSE) for details.
-
-```
