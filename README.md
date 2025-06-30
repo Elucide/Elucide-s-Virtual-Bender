@@ -4,17 +4,19 @@
 
 # 🎛️ Glitch Engine for Processing
 
-A creative glitch effect engine built with [Processing](https://processing.org/). It allows you to manipulate images with pixel-based distortion, hue shifting, noise, and custom filters for experimental and generative art.
+Super fun glitch engine built with [Processing](https://processing.org/). It allows you to manipulate images with pixel-based distortion, hue shifting, noise, and custom filters for experimental and generative art.
 
 ---
 
 ## ✨ Features
 
-- 🌀 Hue shifting & channel splitting
-- 🔁 Pixel sorting, scanline distortion
-- 🌈 RGB/HSB color space effects
-- 🖼️ Live image preview with viewfinder UI
-- 🧪 Easily extendable with your own filters
+-  Hue shifting & channel splitting
+-  Pixel sorting, scanline distortion
+-  Top tier UI
+-  RGB/HSB color space effects
+-  Bad coding
+-  Live image preview with viewfinder UI
+-  Easily extendable with your own filters
 
 ---
 
