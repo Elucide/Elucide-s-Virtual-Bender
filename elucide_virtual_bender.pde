@@ -3,10 +3,13 @@ import java.util.Arrays;
 PImage loadedImage;
 PImage header_img;
 PImage image_to_save;
+PImage cp_background;
+PImage background;
 Button testButton, loadButton, saveButton;
 Button ermButton, bruhButton, blurButton, shineButton, shiftButton;
 Button thresholdButton, unshiftButton;
 Button redSortButton, greenSortButton, blueSortButton;
+Button postButton;
 
 class View {
   float x, y, w, h;
@@ -35,6 +38,8 @@ void setup()
   size(1080, 720);
   loadedImage = loadImage("test.JPG");
   header_img = loadImage("header.jpg");
+  cp_background = loadImage("control_panel_background_final.png");
+  background = loadImage("background.png");
   header_view = new View(10, 10, 720, 144);
   viewfinder_view = new View(20, 154, 680, 480);
   control_panel_view = new View(740, 20, 340, 700);
@@ -102,19 +107,22 @@ void setup()
                            color(100, 200, 255), 
                            color(150, 220, 255), 
                            color(0), "bluesort", "sorts pixels that are not blue enough");
+                     
+  postButton = new Button(750, 230, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "post", "posterize your image !!!");
 }
 
 void draw()
 {
   background(#D6CBFF);
-  
-  //viwer rectangle zone
-  fill(#FFFAE0);
-  rect(10, 144, 700, 500, 10);
-
+  image(background,0, 0);
+ 
   //control panel rectangle zone
   fill(#E5FFEA);
   rect(720, 10, 340, 700, 10);
+  image(cp_background, 720, 10);
  
   header_view.activate();
   draw_header();
@@ -138,6 +146,7 @@ void draw()
   redSortButton.display();
   greenSortButton.display();
   blueSortButton.display();
+  postButton.display();
   
  
 }
@@ -164,7 +173,7 @@ void mousePressed() {
     control_panel_view.activate();
     if (testButton.isPressed())
     {
-       redsortPixelsVertically(loadedImage);
+       loadedImage = posterize(loadedImage);
     }
     if (loadButton.isPressed())
     {
@@ -213,6 +222,10 @@ void mousePressed() {
     if (blueSortButton.isPressed())
     {
        bluesortPixelsVertically(loadedImage);
+    }
+    if (postButton.isPressed())
+    {
+       loadedImage = posterize(loadedImage);
     }
     control_panel_view.deactivate();
 }
