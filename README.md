@@ -22,7 +22,7 @@ Super fun glitch engine built with [Processing](https://processing.org/). It all
 
 ## 📸 Screenshots
 
-<img width="1078" alt="Screenshot 2025-06-30 at 23 31 59" src="https://github.com/user-attachments/assets/3c53443a-864c-420f-a84b-1bf388eeabe3" />
+<img width="1081" alt="Screenshot 2025-07-07 at 21 33 36" src="https://github.com/user-attachments/assets/0fa1e55a-d024-4480-a4bb-3b5f4f5d3f1e" />
 
 ---
 
