@@ -12,7 +12,7 @@ void fileSelected(File selection) {
 
 void load_image_from_button(String path)
 {
-   loadedImage = loadImage(path);
+   history.add(loadImage(path));
 }
 
 void saveImageWithDialog(PImage img) {

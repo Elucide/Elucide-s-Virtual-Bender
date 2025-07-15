@@ -1,6 +1,5 @@
-void redsortPixelsVertically(PImage img) {
+PImage redsortPixelsVertically(PImage img) {
   img.loadPixels();
-  //bw.loadPixels();
 
   int w = img.width;
   int h = img.height;
@@ -10,11 +9,9 @@ void redsortPixelsVertically(PImage img) {
     while (y < h) {
       int index = y * w + x;
 
-      // Start of a black segment
       if ((red(img.pixels[y * w + x]) >= green(img.pixels[y * w + x]) && red(img.pixels[y * w + x]) >= blue(img.pixels[y * w + x]))) {
         int yStart = y;
 
-        // Find the end of the black vertical segment
         while (y < h && (red(img.pixels[y * w + x]) >= green(img.pixels[y * w + x]) && red(img.pixels[y * w + x]) >= blue(img.pixels[y * w + x]))) {
           y++;
         }
@@ -22,16 +19,17 @@ void redsortPixelsVertically(PImage img) {
         int yEnd = y;
         int len = yEnd - yStart;
 
-        // Grab the pixels from original image
         int[] segment = new int[len];
         for (int i = 0; i < len; i++) {
           segment[i] = img.pixels[(yStart + i) * w + x];
         }
 
-        // Manual sort by brightness (bubble sort)
-        for (int i = 0; i < len - 1; i++) {
-          for (int j = 0; j < len - i - 1; j++) {
-            if (brightness(segment[j]) > brightness(segment[j + 1])) {
+        for (int i = 0; i < len - 1; i++)
+        {
+          for (int j = 0; j < len - i - 1; j++)
+          {
+            if (brightness(segment[j]) > brightness(segment[j + 1]))
+            {
               int temp = segment[j];
               segment[j] = segment[j + 1];
               segment[j + 1] = temp;
@@ -39,20 +37,23 @@ void redsortPixelsVertically(PImage img) {
           }
         }
 
-        // Put sorted pixels back
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++)
+        {
           img.pixels[(yStart + i) * w + x] = segment[i];
         }
 
-      } else {
+      }
+      else
+      {
         y++;
       }
     }
   }
   img.updatePixels();
+  return img;
 }
 
-void greensortPixelsVertically(PImage img) {
+PImage greensortPixelsVertically(PImage img) {
   img.loadPixels();
   //bw.loadPixels();
 
@@ -64,11 +65,9 @@ void greensortPixelsVertically(PImage img) {
     while (y < h) {
       int index = y * w + x;
 
-      // Start of a black segment
       if ((green(img.pixels[y * w + x]) >= blue(img.pixels[y * w + x]) && green(img.pixels[y * w + x]) >= red(img.pixels[y * w + x]))) {
         int yStart = y;
 
-        // Find the end of the black vertical segment
         while (y < h && (green(img.pixels[y * w + x]) >= blue(img.pixels[y * w + x]) && green(img.pixels[y * w + x]) >= red(img.pixels[y * w + x]))) {
           y++;
         }
@@ -76,13 +75,11 @@ void greensortPixelsVertically(PImage img) {
         int yEnd = y;
         int len = yEnd - yStart;
 
-        // Grab the pixels from original image
         int[] segment = new int[len];
         for (int i = 0; i < len; i++) {
           segment[i] = img.pixels[(yStart + i) * w + x];
         }
 
-        // Manual sort by brightness (bubble sort)
         for (int i = 0; i < len - 1; i++) {
           for (int j = 0; j < len - i - 1; j++) {
             if (brightness(segment[j]) > brightness(segment[j + 1])) {
@@ -104,8 +101,9 @@ void greensortPixelsVertically(PImage img) {
     }
   }
   img.updatePixels();
+  return img;
 }
-void bluesortPixelsVertically(PImage img) {
+PImage bluesortPixelsVertically(PImage img) {
   img.loadPixels();
   //bw.loadPixels();
 
@@ -157,4 +155,5 @@ void bluesortPixelsVertically(PImage img) {
     }
   }
   img.updatePixels();
+  return img;
 }

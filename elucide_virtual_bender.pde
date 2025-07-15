@@ -1,15 +1,53 @@
 import java.util.Arrays;
 
-PImage loadedImage;
 PImage header_img;
 PImage image_to_save;
 PImage cp_background;
 PImage background;
+
+//ArrayList<PImage> history = new ArrayList<PImage>();
+History history;
+
+int historyindex;
+Button backButton;
+
 Button testButton, loadButton, saveButton;
 Button ermButton, bruhButton, blurButton, shineButton, shiftButton;
 Button thresholdButton, unshiftButton;
 Button redSortButton, greenSortButton, blueSortButton;
 Button postButton;
+
+class History
+{
+    ArrayList<PImage> history;
+    History()
+    {
+        this.history = new ArrayList<PImage>();
+    }
+    
+    void add(PImage img)
+    {
+        PImage newImg = createImage(img.width, img.height, ARGB);
+        img.loadPixels();
+        newImg.loadPixels();
+        arrayCopy(img.pixels, newImg.pixels);
+        newImg.updatePixels();
+        this.history.add(newImg);
+    }
+    
+    PImage get(int index)
+    {
+       return (this.history.get(index));
+    }
+    int size()
+    {
+       return (this.history.size()); 
+    }
+    void remove(int index)
+    {
+       this.history.remove(index); 
+    }
+}
 
 class View {
   float x, y, w, h;
@@ -36,13 +74,20 @@ View header_view, viewfinder_view, control_panel_view;
 void setup()
 {
   size(1080, 720);
-  loadedImage = loadImage("test.JPG");
+  //history.add(loadImage("test.JPG"));
+  history = new History();
+  history.add(loadImage("test.JPG"));
   header_img = loadImage("header.jpg");
   cp_background = loadImage("control_panel_background_final.png");
   background = loadImage("background.png");
   header_view = new View(10, 10, 720, 144);
   viewfinder_view = new View(20, 154, 680, 480);
   control_panel_view = new View(740, 20, 340, 700);
+  backButton = new Button(990, 50, 30, 30, 
+                           color(100, 200, 255), 
+                           color(150, 220, 255), 
+                           color(0), "back", "oops");
+                           
   testButton = new Button(750, 50, 30, 30, 
                            color(100, 200, 255), 
                            color(150, 220, 255), 
@@ -133,6 +178,7 @@ void draw()
   viewfinder_view.deactivate();
   
 
+  backButton.display();
   testButton.display();
   loadButton.display();
   saveButton.display();
@@ -158,22 +204,44 @@ void draw_header()
 
 void draw_viewfinder()
 {
-   if (loadedImage.width <= loadedImage.height)
+//   println("length in history is ", history.size());
+   PImage img = history.get(history.size() - 1);
+   img.updatePixels();
+   if (img.width <= img.height)
    {
-     image(loadedImage, 340 - (loadedImage.width * 480 / loadedImage.height) / 2 , 0, loadedImage.width * 480 / loadedImage.height, 480);
+     image(img, 340 - (img.width * 480 / img.height) / 2 , 0, img.width * 480 / img.height, 480);
    }
    else
    {
-     image(loadedImage, 0, 240 - (loadedImage.height * 680 / loadedImage.width) / 2, 680, loadedImage.height * 680 / loadedImage.width);
+     image(img, 0, 240 - (img.height * 680 / img.width) / 2, 680, img.height * 680 / img.width);
    }
+}
+
+
+PImage back()
+{
+    println("length is ", history.size());
+    PImage img;
+    if (history.size() > 1)
+    {
+        println("Im removing last image !");
+        history.remove(history.size() - 1);
+    }
+    println("new length is ", history.size());
+    img = history.get(history.size() - 1);
+    return img;
 }
 
 void mousePressed() {
   // Check if mouse is in control panel view
     control_panel_view.activate();
+    
+    if (backButton.isPressed())
+    {
+       back();
+    }
     if (testButton.isPressed())
     {
-       loadedImage = posterize(loadedImage);
     }
     if (loadButton.isPressed())
     {
@@ -181,51 +249,51 @@ void mousePressed() {
     }
     if (saveButton.isPressed())
     {
-       saveImageWithDialog(loadedImage);
+       saveImageWithDialog(history.get(history.size() - 1));
     }
     if (ermButton.isPressed())
     {
-        loadedImage = erm(loadedImage);
+        history.add(erm(history.get(history.size() - 1)));
     }
     if (bruhButton.isPressed())
     {
-        loadedImage = bruh(loadedImage);
+        history.add(bruh(history.get(history.size() - 1)));
     }
     if (blurButton.isPressed())
     {
-        loadedImage = blur(loadedImage);
+        history.add(blur(history.get(history.size() - 1)));
     }
     if (shineButton.isPressed())
     {
-        loadedImage = shine(loadedImage);
+        history.add(shine(history.get(history.size() - 1)));
     }
     if (shiftButton.isPressed())
     {
-        loadedImage = shift(loadedImage);
+        history.add(shift(history.get(history.size() - 1)));
     }
     if (thresholdButton.isPressed())
     {
-       loadedImage = threshold(loadedImage);
+       history.add(threshold(history.get(history.size() - 1)));
     }
     if (unshiftButton.isPressed())
     {
-        loadedImage = unshift(loadedImage);
+        history.add(unshift(history.get(history.size() - 1)));
     }
     if (redSortButton.isPressed())
     {
-       redsortPixelsVertically(loadedImage);
+       history.add(redsortPixelsVertically(history.get(history.size() - 1)));
     }
     if (greenSortButton.isPressed())
     {
-       greensortPixelsVertically(loadedImage);
+       history.add(greensortPixelsVertically(history.get(history.size() - 1)));
     }
     if (blueSortButton.isPressed())
     {
-       bluesortPixelsVertically(loadedImage);
+       history.add(bluesortPixelsVertically(history.get(history.size() - 1)));
     }
     if (postButton.isPressed())
     {
-       loadedImage = posterize(loadedImage);
+       history.add(posterize(history.get(history.size() - 1)));
     }
     control_panel_view.deactivate();
 }
