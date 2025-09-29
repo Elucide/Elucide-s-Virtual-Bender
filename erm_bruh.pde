@@ -2,6 +2,7 @@ PImage erm(PImage img)
 {
   int index;
   color img_color;
+  float alpha;
   
    for (int x = 0; x < img.width; x++)
    {
@@ -9,8 +10,9 @@ PImage erm(PImage img)
       {
         index = x + y * img.width;
         img_color = img.pixels[index];
+        alpha = alpha(img_color);
         img_color /= 2;
-        img.pixels[index] = img_color;
+        img.pixels[index] = color(red(img_color), green(img_color), blue(img_color), alpha);
       }
    }
    img.updatePixels();  // ← This pushes the changes to the screen
