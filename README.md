@@ -14,7 +14,7 @@ Super fun glitch engine built with [Processing](https://processing.org/). It all
 -  Pixel sorting, scanline distortion
 -  Top tier UI
 -  RGB/HSB color space effects
--  Bad coding
+-  Bad programming
 -  Live image preview with viewfinder UI
 -  Easily extendable with your own filters
 
